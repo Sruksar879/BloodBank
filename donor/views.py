@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,reverse
 from . import forms,models
 from django.db.models import Sum,Q
 from django.contrib.auth.models import Group
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.conf import settings
 from datetime import date, timedelta
@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from blood import forms as bforms
 from blood import models as bmodels
+from donor.donor_library import donation_history, request_history
 
 def donor_signup_view(request):
     userForm=forms.DonorUserForm()
@@ -57,9 +58,11 @@ def donate_blood_view(request):
     return render(request,'donor/donate_blood.html',{'donation_form':donation_form})
 
 def donation_history_view(request):
-    donor= models.Donor.objects.get(user_id=request.user.id)
-    donations=models.BloodDonate.objects.all().filter(donor=donor)
-    return render(request,'donor/donation_history.html',{'donations':donations})
+    
+    return HttpResponse(donation_history(request))
+    # donor= models.Donor.objects.get(user_id=request.user.id)
+    # donations=models.BloodDonate.objects.all().filter(donor=donor)
+    # return render(request,'donor/donation_history.html',{'donations':donations})
 
 def make_request_view(request):
     request_form=bforms.RequestForm()
@@ -75,6 +78,7 @@ def make_request_view(request):
     return render(request,'donor/makerequest.html',{'request_form':request_form})
 
 def request_history_view(request):
-    donor= models.Donor.objects.get(user_id=request.user.id)
-    blood_request=bmodels.BloodRequest.objects.all().filter(request_by_donor=donor)
-    return render(request,'donor/request_history.html',{'blood_request':blood_request})
+    return HttpResponse(request_history(request))
+    # donor= models.Donor.objects.get(user_id=request.user.id)
+    # blood_request=bmodels.BloodRequest.objects.all().filter(request_by_donor=donor)
+    # return render(request,'donor/request_history.html',{'blood_request':blood_request})
