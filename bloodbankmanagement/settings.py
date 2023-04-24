@@ -27,7 +27,7 @@ SECRET_KEY = '+zy!9k=9pql5gz9bkqjore)k6r!%w0atk(@(!(!zvp5e(t2i8n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['b9c8e171396a4cc9a143d851e3badb37.vfs.cloud9.eu-west-1.amazonaws.com']
+ALLOWED_HOSTS = ['b9c8e171396a4cc9a143d851e3badb37.vfs.cloud9.eu-west-1.amazonaws.com' , 'x22174711bloodbank-env.eba-mhxfnjj9.eu-west-3.elasticbeanstalk.com' , '*']
 
 
 # Application definition
